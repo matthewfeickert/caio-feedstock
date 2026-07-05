@@ -1,0 +1,11 @@
+# caio's linux_uring extension unconditionally includes io_uring kernel
+# headers (UAPI, needs >= 5.6 features).
+# c.f. https://github.com/mosquito/caio/blob/0.10.2/caio/linux_uring.c
+# linux-64: glibc 2.28 sysroot ships AlmaLinux 8 kernel-headers 4.18 which
+#   carry the RHEL io_uring backport (all required symbols verified).
+# aarch64: the 4.18 aarch64 backport is incomplete (no IORING_OP_ASYNC_CANCEL,
+#   IORING_REGISTER_EVENTFD_ASYNC, IORING_FEAT_SINGLE_MMAP), so use
+#   glibc 2.34 (mainline kernel-headers 5.14).
+c_stdlib_version:   # [linux]
+  - "2.28"          # [linux and x86_64]
+  - "2.34"          # [linux and aarch64]
