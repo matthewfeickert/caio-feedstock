@@ -14,9 +14,6 @@ source:
 
 build:
   number: 0
-  # requires-python is 3.10+
-  # c.f. https://github.com/mosquito/caio/blob/bf8da967679914a8879501db386168bd8e3ece76/pyproject.toml#L11
-  skip: match(python, "<3.10")
   script:
     - ${{ PYTHON }} -m pip install . -vv
 
@@ -24,6 +21,7 @@ requirements:
   build:
     - ${{ compiler('c') }}
     - ${{ stdlib('c') }}
+    - liburing
     - if: build_platform != target_platform
       then:
         - cross-python_${{ target_platform }}
