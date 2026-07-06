@@ -6,6 +6,8 @@
 # aarch64: the 4.18 aarch64 backport is incomplete (no IORING_OP_ASYNC_CANCEL,
 #   IORING_REGISTER_EVENTFD_ASYNC, IORING_FEAT_SINGLE_MMAP), so use
 #   glibc 2.34 (mainline kernel-headers 5.14).
-c_stdlib_version:   # [linux]
-  - "2.28"          # [linux and x86_64]
-  - "2.34"          # [linux and aarch64]
+c_stdlib_version:
+  - if: linux and x86_64
+    then: "2.28"
+  - if: linux and aarch64
+    then: "2.34"
